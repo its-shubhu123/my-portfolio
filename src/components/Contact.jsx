@@ -43,7 +43,7 @@ const handleSubmit = async (e) => {
   formData.append("message", form.message);
 
   try {
-    const res = await fetch("https://formspree.io/f/your-id", {
+    const res = await fetch("https://formspree.io/f/xrerqylz", {
       method: "POST",
       body: formData,
       headers: { Accept: "application/json" },
