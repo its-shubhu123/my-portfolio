@@ -33,35 +33,16 @@ export default function Contact() {
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setLoading(true);
-
-  const formData = new FormData();
-  formData.append("name", form.name);
-  formData.append("email", form.email);
-  formData.append("message", form.message);
-
-  try {
-    const res = await fetch("https://formspree.io/f/xrerqylz", {
-      method: "POST",
-      body: formData,
-      headers: { Accept: "application/json" },
-    });
-
-    if (res.ok) {
-      setSent(true);
-      setForm({ name: "", email: "", message: "" });
-    } else {
-      alert("Failed to send message");
-    }
-  } catch (err) {
-    console.error(err);
-    alert("Something went wrong");
-  } finally {
-    setLoading(false);
+const handleSubmit = e => {
+    e.preventDefault()
+    setLoading(true)
+    setTimeout(() => {
+      setLoading(false)
+      setSent(true)
+      setForm({ name: '', email: '', message: '' })
+    }, 1200)
   }
-};
+
   return (
     <section id="contact" className="py-28" ref={ref}>
       <div className="section-container">
