@@ -33,17 +33,33 @@ export default function Contact() {
 
   const handleChange = (e) =>
     setForm((f) => ({ ...f, [e.target.name]: e.target.value }));
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
+  try {
+    const response = await fetch("https://formspree.io/f/xrerqylz", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(form),
+    });
+
+    if (response.ok) {
       setSent(true);
       setForm({ name: "", email: "", message: "" });
-    }, 1200);
-  };
-
+    } else {
+      alert("Failed to send message. Try again.");
+    }
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong!");
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <section id="contact" className="py-28" ref={ref}>
       <div className="section-container">
@@ -138,7 +154,7 @@ export default function Contact() {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="card space-y-4">
+              <form  action= " https://formspree.io/f/xrerqylz" onSubmit={handleSubmit} className="card space-y-4" method="POST">
                 {[
                   {
                     name: "name",
