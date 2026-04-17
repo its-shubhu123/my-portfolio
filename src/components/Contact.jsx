@@ -156,7 +156,7 @@ const handleSubmit = async (e) => {
                 </button>
               </motion.div>
             ) : (
-              <form  action= " https://formspree.io/f/xrerqylz" onSubmit={handleSubmit} className="card space-y-4" method="POST">
+              <form  onSubmit={handleSubmit} className="card space-y-4" method="POST">
                 {[
                   {
                     name: "name",
