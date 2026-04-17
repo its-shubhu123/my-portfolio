@@ -37,25 +37,27 @@ const handleSubmit = async (e) => {
   e.preventDefault();
   setLoading(true);
 
+  const formData = new FormData();
+  formData.append("name", form.name);
+  formData.append("email", form.email);
+  formData.append("message", form.message);
+
   try {
-    const response = await fetch("https://formspree.io/f/xrerqylz", {
+    const res = await fetch("https://formspree.io/f/your-id", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-      body: JSON.stringify(form),
+      body: formData,
+      headers: { Accept: "application/json" },
     });
 
-    if (response.ok) {
+    if (res.ok) {
       setSent(true);
       setForm({ name: "", email: "", message: "" });
     } else {
-      alert("Failed to send message. Try again.");
+      alert("Failed to send message");
     }
-  } catch (error) {
-    console.error(error);
-    alert("Something went wrong!");
+  } catch (err) {
+    console.error(err);
+    alert("Something went wrong");
   } finally {
     setLoading(false);
   }
